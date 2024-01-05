@@ -4,6 +4,7 @@ import { CalculatorComponent } from './calculator.component';
 import { CalculatorService } from 'src/core/services/calculator.service';
 import { of } from 'rxjs';
 import { ColorChangeDirective } from 'src/core/directives/color-change.directive';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 describe('CalculatorComponent', () => {
   let calculator: CalculatorComponent;
@@ -14,6 +15,7 @@ describe('CalculatorComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [CalculatorComponent, ColorChangeDirective],
       providers: [CalculatorService],
+      imports: [ReactiveFormsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalculatorComponent);
@@ -76,4 +78,51 @@ describe('CalculatorComponent', () => {
   //     calculatorService.divide(10, 0);
   //   }).toThrowError('Cannot divide by zero');
   // });
+
+  it('should be valid when all of the fields are filled in correctly', () => {
+    calculator.calculatorForm.get('operand1')?.setValue(123);
+    calculator.calculatorForm.get('operand2')?.setValue(456);
+    calculator.calculatorForm.get('operator')?.setValue('+');
+
+    expect(calculator.calculatorForm.valid).toBe(true);
+  });
+
+  it('should be invalid when one of the field is not filled in correctly', () => {
+    calculator.calculatorForm.get('operand1')?.setValue(123);
+    calculator.calculatorForm.get('operator')?.setValue('+');
+
+    expect(calculator.calculatorForm.valid).toBe(false);
+  });
+
+  it('should add when the + operator is selected and the calculate button is clicked', () => {
+    calculator.calculatorForm.get('operand1')?.setValue(2);
+    calculator.calculatorForm.get('operand2')?.setValue(3);
+    calculator.calculatorForm.get('operator')?.setValue('+');
+    calculator.calculate();
+    expect(calculator.result).toBe(5);
+  });
+
+  it('should subtract when the - operator is selected and the calculate button is clicked', () => {
+    calculator.calculatorForm.get('operand1')?.setValue(2);
+    calculator.calculatorForm.get('operand2')?.setValue(3);
+    calculator.calculatorForm.get('operator')?.setValue('-');
+    calculator.calculate();
+    expect(calculator.result).toBe(-1);
+  });
+
+  it('should multiply when the * operator is selected and the calculate button is clicked', () => {
+    calculator.calculatorForm.get('operand1')?.setValue(2);
+    calculator.calculatorForm.get('operand2')?.setValue(3);
+    calculator.calculatorForm.get('operator')?.setValue('*');
+    calculator.calculate();
+    expect(calculator.result).toBe(6);
+  });
+
+  it('should divide when the / operator is selected and the calculation button is clicked.', () => {
+    calculator.calculatorForm.get('operand1')?.setValue(3);
+    calculator.calculatorForm.get('operand2')?.setValue(2);
+    calculator.calculatorForm.get('operator')?.setValue('/');
+    calculator.calculate();
+    expect(calculator.result).toBe(1.5);
+  });
 });

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ColorChangeDirective } from './color-change.directive';
 import { CalculatorComponent } from 'src/app/calculator/calculator.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ColorChangeDirective', () => {
   let fixture: ComponentFixture<CalculatorComponent>;
@@ -10,6 +11,7 @@ describe('ColorChangeDirective', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ColorChangeDirective, CalculatorComponent],
+      imports: [ReactiveFormsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalculatorComponent);

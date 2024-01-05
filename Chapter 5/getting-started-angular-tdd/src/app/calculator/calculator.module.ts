@@ -5,6 +5,7 @@ import { CalculatorRoutingModule } from './calculator-routing.module';
 import { CalculatorComponent } from './calculator.component';
 import { ColorChangeDirective } from 'src/core/directives/color-change.directive';
 import { PercentPipe } from 'src/core/pipes/percent.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { PercentPipe } from 'src/core/pipes/percent.pipe';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     CalculatorRoutingModule
   ]
 })

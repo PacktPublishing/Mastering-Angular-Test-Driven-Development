@@ -1,6 +1,14 @@
-<p [colorChange]="color"> {{ 100 | percent }} </p>
-<p [colorChange]="color"> {{ 0.5 | percent }} </p>
-<p [colorChange]="color"> {{ -100 | percent }} </p>
-
-
-
+<form [formGroup]="calculatorForm">
+  <input type="number" formControlName="operand1" />
+  <input type="number" formControlName="operand2" />
+  <select formControlName="operator">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">*</option>
+    <option value="/">/</option>
+  </select>
+  <button (click)="calculate()" [disabled]="calculatorForm.invalid">
+    Calculate
+  </button>
+  <p [colorChange]="color">{{ result }}</p>
+</form>
