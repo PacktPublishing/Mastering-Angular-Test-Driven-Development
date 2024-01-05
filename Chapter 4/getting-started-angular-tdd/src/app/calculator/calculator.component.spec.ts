@@ -69,11 +69,10 @@ describe('CalculatorComponent', () => {
     expect(calculator.result).toBe(2);
   });
 
-  it('should raise an exception when dividing by zero', () => {
+  it('should display error message for division by zero', () => {
     spyOn(calculatorService, 'divide').and.callThrough();
     calculator.divide(10, 0);
-    expect(() => {
-      calculatorService.divide(10, 0);
-    }).toThrowError('Cannot divide by zero');
+    expect(calculatorService.divide).toHaveBeenCalledWith(10, 0);
+    expect(calculator.result).toBe('Division by zero');
   });
 });

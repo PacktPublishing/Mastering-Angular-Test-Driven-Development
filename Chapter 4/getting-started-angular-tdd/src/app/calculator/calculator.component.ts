@@ -7,7 +7,7 @@ import { CalculatorService } from 'src/core/services/calculator.service';
   styleUrls: ['./calculator.component.scss'],
 })
 export class CalculatorComponent implements OnInit {
-  result!: number;
+  result!: number | string;
   color = 'red';
 
   constructor(private calculatorService: CalculatorService) {}

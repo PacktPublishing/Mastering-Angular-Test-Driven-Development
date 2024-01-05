@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CalculatorService {
   private resultSubject = new BehaviorSubject<number>(0);
   public result$ = this.resultSubject.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   add(a: number, b: number): number {
     return a + b;
@@ -22,7 +22,11 @@ export class CalculatorService {
     return a * b;
   }
 
-  divide(a: number, b: number): number {
+  divide(a: number, b: number): number | string {
+    if (b === 0) {
+      return 'Division by zero';
+    }
+
     return a / b;
   }
 }
