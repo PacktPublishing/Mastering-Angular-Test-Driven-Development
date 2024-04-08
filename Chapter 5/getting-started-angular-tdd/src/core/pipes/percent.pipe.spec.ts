@@ -30,7 +30,7 @@ describe('PercentPipe', () => {
     expect(output).toBe('0%');
   });
 
-  it('should format a zero number to a percentage string', () => {
+  it('should return an Error when the value is not a number NaN', () => {
     const input = NaN;
     const output = new PercentPipe().transform(input);
     expect(output).toBe('Error');
