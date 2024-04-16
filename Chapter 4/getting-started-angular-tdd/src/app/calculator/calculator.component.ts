@@ -31,4 +31,6 @@ export class CalculatorComponent implements OnInit {
   divide(a: number, b: number): void {
     this.result = this.calculatorService.divide(a, b);
   }
+
+
 }

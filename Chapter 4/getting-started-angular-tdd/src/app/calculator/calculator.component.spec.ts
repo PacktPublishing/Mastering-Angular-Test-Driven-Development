@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CalculatorComponent } from './calculator.component';
 import { CalculatorService } from 'src/core/services/calculator.service';
-import { of } from 'rxjs';
 import { ColorChangeDirective } from 'src/core/directives/color-change.directive';
+import { CalculatorServiceStub } from 'src/core/stubs/calculator.service.stub';
+// import { MockSquareRootService } from 'src/core/mocks/mock-square-root.service.mock';
 
 describe('CalculatorComponent', () => {
   let calculator: CalculatorComponent;
@@ -13,7 +14,10 @@ describe('CalculatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CalculatorComponent, ColorChangeDirective],
-      providers: [CalculatorService],
+      providers: [
+        { provide: CalculatorService, useClass: CalculatorServiceStub },
+        // { provide: CalculatorService, useClass: MockSquareRootService },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalculatorComponent);
@@ -69,10 +73,25 @@ describe('CalculatorComponent', () => {
     expect(calculator.result).toBe(2);
   });
 
-  it('should display error message for division by zero', () => {
+  it('should raise an exception when dividing by zero', () => {
     spyOn(calculatorService, 'divide').and.callThrough();
-    calculator.divide(10, 0);
+    expect(() => calculator.divide(10, 0)).toThrowError(
+      'Cannot divide by zero'
+    );
     expect(calculatorService.divide).toHaveBeenCalledWith(10, 0);
-    expect(calculator.result).toBe('Division by zero');
   });
+
+  // it('should display error message for division by zero', () => {
+  //   spyOn(calculatorService, 'divide').and.callThrough();
+  //   calculator.divide(10, 0);
+  //   expect(calculatorService.divide).toHaveBeenCalledWith(10, 0);
+  //   expect(calculator.result).toBe('Division by zero');
+  // });
+
+  // it('should calculate the square root correctly', () => {
+  //   spyOn(calculatorService, ‘squareRoot’).and.callThrough();
+  //   calculator.squareRoot(16);
+  //   expect(calculatorService.squareRoot).toHaveBeenCalledWith(16);
+  //   expect(calculator.result).toBe(4);
+  //  });
 });
