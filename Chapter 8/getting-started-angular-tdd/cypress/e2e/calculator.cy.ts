@@ -166,17 +166,8 @@ describe('Calculator Functionality', () => {
     });
   });
 });
-// Cypress.Commands.add(
-//   'performCalculation',
-//   (firstNumber, operator, secondNumber) => {
-//     cy.get('.number-input').first().type(firstNumber);
-//     cy.get('.operator').contains(operator).click();
-//     cy.get('.number-input').last().type(secondNumber);
-//     cy.get('.equals').click();
-//   }
-// );
 
-// it('adds two positive numbers correctly', () => {
-//   cy.performCalculation('5', '+', '3');
-//   cy.get('.result').should('have.text', '8');
-// });
+it('adds two positive numbers correctly', () => {
+  cy.performCalculation('5', '+', '3');
+  cy.get('p').should('have.text', '8');
+});
