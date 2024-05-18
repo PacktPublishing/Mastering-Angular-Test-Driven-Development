@@ -87,6 +87,7 @@
               "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
@@ -96,12 +97,19 @@
               "src/styles.scss"
             ],
             "scripts": []
+          },
+          "configurations": {
+            "ci": {
+              "watch": false,
+              "progress": false,
+              "browsers": "ChromeHeadlessCI"
+            }
           }
         }
       }
     }
   },
   "cli": {
-    "analytics": "c85a1dac-3895-4a73-a6a4-1c41c1a7cd3c"
+    "analytics": "b685f30d-049d-4195-ac03-2c0598d949ff"
   }
 }
