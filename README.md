@@ -70,7 +70,7 @@ In new versions of Angular, the two files don't exist and you have to create the
 
 In fact, Karma configurations are already an integral part of the core of an Angular project.
 
-In the root of Angular project, you can create your `karma.conf.js` with this content :
+In the root of your Angular project, you can create your `karma.conf.js` with this content :
 
     // Karma configuration file, see link for more information
     // https://karma-runner.github.io/1.0/config/configuration-file.html
@@ -117,7 +117,7 @@ In the root of Angular project, you can create your `karma.conf.js` with this co
       });
     };`
     
-And then, in your src folder, you can create `test.ts` file with this content :
+And then, in your `src` folder, you can create `test.ts` file with this content :
 
     // This file is required by karma.conf.js and loads recursively all the .spec and framework files 
     import 'zone.js/testing';
@@ -146,7 +146,7 @@ And then, in your src folder, you can create `test.ts` file with this content :
     // And load the modules.
     context.keys().map(context);
 
-Finally, you'll update your `angular.json` file about the test section like this to configure the usage of Karma's custom configuration file:
+Finally, you'll update your `angular.json` file about the test section like that to configure the usage of Karma's custom configuration file:
 
     "test": {
               ...
