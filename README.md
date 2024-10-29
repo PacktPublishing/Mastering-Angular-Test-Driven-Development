@@ -61,3 +61,100 @@ With the following software and hardware list you can run all code files present
 and Ionic. A certifi ed Ionic and Angular expert developer, he shares his knowledge through courses,
 articles, webinars, and training. He uses his free time to help beginners and spread knowledge by writing articles, including via Openclassrooms, the leading online university in the French-speaking world. He also helps fellow developers on a part-time basis with code reviews, technical choices, and bug fixes. His dedication to continuous learning and experience sharing contributes to his growth as a developer
 and mentor.
+
+## Key information
+### Chapter 1
+Related to Chapter 1, you'll notice that I've told about two files such as `karma.conf.js` and `test.jts`
+
+In new versions of Angular, the two files don't exist and you have to create them manually.
+
+In fact, Karma configurations are already an integral part of the core of an Angular project.
+
+In the root of Angular project, you can create your `karma.conf.js` with this content :
+
+    // Karma configuration file, see link for more information
+    // https://karma-runner.github.io/1.0/config/configuration-file.html
+    
+    module.exports = function (config) {
+      config.set({
+        basePath: '',
+        frameworks: ['jasmine', '@angular-devkit/build-angular'],
+        plugins: [
+          require('karma-jasmine'),
+          require('karma-chrome-launcher'),
+          require('karma-jasmine-html-reporter'),
+          require('karma-coverage'),
+          require('@angular-devkit/build-angular/plugins/karma')
+        ],
+        client: {
+          jasmine: {
+            // you can add configuration options for Jasmine here
+            // the possible options are listed at https://jasmine.github.io/api/edge/Configuration.html
+            // for example, you can disable the random execution with `random: false`
+            // or set a specific seed with `seed: 4321`
+          },
+          clearContext: false // leave Jasmine Spec Runner output visible in browser
+        },
+        jasmineHtmlReporter: {
+          suppressAll: true // removes the duplicated traces
+        },
+        coverageReporter: {
+          dir: require('path').join(__dirname, './coverage/ngv'),
+          subdir: '.',
+          reporters: [
+            { type: 'html' },
+            { type: 'text-summary' }
+          ]
+        },
+        reporters: ['progress', 'kjhtml'],
+        port: 9876,
+        colors: true,
+        logLevel: config.LOG_INFO,
+        autoWatch: true,
+        browsers: ['Chrome'],
+        singleRun: false,
+        restartOnFileChange: true
+      });
+    };`
+    
+And then, in your src folder, you can create `test.ts` file with this content :
+
+    // This file is required by karma.conf.js and loads recursively all the .spec and framework files 
+    import 'zone.js/testing';
+    import { getTestBed } from '@angular/core/testing';
+    import {
+      BrowserDynamicTestingModule,
+      platformBrowserDynamicTesting
+    } from '@angular/platform-browser-dynamic/testing';
+    
+    declare const require: {
+      context(path: string, deep?: boolean, filter?: RegExp): {
+        keys(): string[];
+        <T>(id: string): T;
+      };
+    };
+    
+    // First, initialize the Angular testing environment.
+    getTestBed().initTestEnvironment(
+      BrowserDynamicTestingModule,
+      platformBrowserDynamicTesting(), {
+        teardown: { destroyAfterEach: false }
+    }
+    );
+    // Then we find all the tests.
+    const context = require.context('./', true, /\.spec\.ts$/);
+    // And load the modules.
+    context.keys().map(context);
+
+Finally, you'll update your `angular.json` file about the test section like this to configure the usage of Karma's custom configuration file:
+
+    "test": {
+              ...
+              "options": {
+                "main": "src/test.ts",
+                ...
+                **"karmaConfig": "karma.conf.js"**,
+                ...
+              },
+      	...
+      }
