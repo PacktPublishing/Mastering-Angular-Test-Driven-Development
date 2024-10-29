@@ -64,7 +64,7 @@ and mentor.
 
 ## Key information
 ### Chapter 1
-Related to Chapter 1, you'll notice that I've told about two files such as `karma.conf.js` and `test.jts`
+Related to Chapter 1, you'll notice that I've told about two files such as `karma.conf.js` and `test.ts`
 
 In new versions of Angular, the two files don't exist and you have to create them manually.
 
